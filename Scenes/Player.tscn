@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://d3qtpy2abj0fh"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_a0trg"]
+[ext_resource type="PackedScene" uid="uid://bbjxx72qcihwn" path="res://Scenes/Particles/Train_01.tscn" id="2_5ge18"]
+[ext_resource type="Texture2D" uid="uid://dcjmn4akdu1l2" path="res://Assets/ball_blue_large.png" id="3_arcp7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kj0fb"]
+radius = 56.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f8x3n"]
+radius = 64.0
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+script = ExtResource("1_a0trg")
+
+[node name="Train_01" parent="." instance=ExtResource("2_5ge18")]
+scale = Vector2(0.3, 0.3)
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_kj0fb")
+
+[node name="Sprite" type="Sprite2D" parent="Collision"]
+texture = ExtResource("3_arcp7")
+
+[node name="HurtBox" type="Area2D" parent="."]
+
+[node name="Collision" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CircleShape2D_f8x3n")
+
+[connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]

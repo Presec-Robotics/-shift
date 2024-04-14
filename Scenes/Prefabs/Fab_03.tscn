@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://s6ee5jyaoykm"]
+
+[ext_resource type="Texture2D" uid="uid://e6yr8mpaxvyi" path="res://Assets/background_brown.png" id="1_venw7"]
+
+[node name="Fab_01" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(15, 8.5)
+texture = ExtResource("1_venw7")

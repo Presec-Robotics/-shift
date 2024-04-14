@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://bnsf7ar3kdkiv"]
+
+[ext_resource type="Script" path="res://Scripts/Enermy.gd" id="1_if6vk"]
+[ext_resource type="Texture2D" uid="uid://cm2vxgm61p0v3" path="res://Assets/ball_red_large.png" id="3_5jpo2"]
+[ext_resource type="PackedScene" uid="uid://cdy7tfb1bwuby" path="res://Scenes/Particles/Train_02.tscn" id="3_y37wh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1vidd"]
+radius = 64.0
+
+[node name="Enermy" type="CharacterBody2D" groups=["enermy"]]
+script = ExtResource("1_if6vk")
+
+[node name="Train_01" parent="." instance=ExtResource("3_y37wh")]
+scale = Vector2(0.3, 0.3)
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1vidd")
+
+[node name="Sprite" type="Sprite2D" parent="Collision"]
+texture = ExtResource("3_5jpo2")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 8.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

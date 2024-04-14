@@ -1,0 +1,105 @@
+[gd_scene load_steps=10 format=3 uid="uid://dhk4o7q2anbp0"]
+
+[ext_resource type="PackedScene" uid="uid://d3qtpy2abj0fh" path="res://Scenes/Player.tscn" id="1_8gr6i"]
+[ext_resource type="PackedScene" uid="uid://dn8k5wxderj4u" path="res://Scenes/Prefabs/Fab_01.tscn" id="1_t4q32"]
+[ext_resource type="Script" path="res://Scripts/GameManager.gd" id="1_wr8ps"]
+[ext_resource type="PackedScene" uid="uid://cj5hj2ree4xlb" path="res://Scenes/Prefabs/StartFab.tscn" id="2_8y66m"]
+[ext_resource type="PackedScene" uid="uid://c6ycl61gx0sku" path="res://Scenes/Prefabs/Fab_02.tscn" id="3_omul1"]
+[ext_resource type="Script" path="res://Scripts/FollowCamera.gd" id="3_t7axf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uq1sg"]
+size = Vector2(130, 1088)
+
+[sub_resource type="LabelSettings" id="LabelSettings_00as6"]
+font_size = 100
+
+[sub_resource type="LabelSettings" id="LabelSettings_ek4va"]
+font_size = 100
+font_color = Color(1, 0.211765, 0.160784, 1)
+
+[node name="Level" type="Node2D"]
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("1_wr8ps")
+
+[node name="Timer" type="Timer" parent="GameManager"]
+autostart = true
+
+[node name="Loader" type="Area2D" parent="GameManager"]
+
+[node name="Collision" type="CollisionShape2D" parent="GameManager/Loader"]
+position = Vector2(0, 352)
+shape = SubResource("RectangleShape2D_uq1sg")
+
+[node name="Environment" type="Node2D" parent="."]
+position = Vector2(56, 24)
+
+[node name="Start" parent="Environment" instance=ExtResource("2_8y66m")]
+position = Vector2(-1080, 328)
+
+[node name="Fab_01" parent="Environment" instance=ExtResource("1_t4q32")]
+position = Vector2(840, 328)
+
+[node name="Fab_02" parent="Environment" instance=ExtResource("3_omul1")]
+position = Vector2(2760, 328)
+
+[node name="Player" parent="." instance=ExtResource("1_8gr6i")]
+position = Vector2(-840, -128)
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(56, 24)
+offset = Vector2(0, 325)
+script = ExtResource("3_t7axf")
+
+[node name="Control" type="Control" parent="Camera"]
+z_index = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HUD" type="Control" parent="Camera/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Score" type="Label" parent="Camera/Control/HUD"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.004
+anchor_top = 0.126
+anchor_right = 1.0
+anchor_bottom = 0.126
+offset_left = 7.68
+offset_top = -64.08
+offset_bottom = 75.92
+grow_horizontal = 2
+text = "0000"
+label_settings = SubResource("LabelSettings_00as6")
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="GameOver" type="Label" parent="Camera/Control/HUD"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -287.0
+offset_top = -70.0
+offset_right = 287.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "GAME OVER"
+label_settings = SubResource("LabelSettings_ek4va")
+
+[connection signal="timeout" from="GameManager/Timer" to="GameManager" method="_on_timer_timeout"]
+[connection signal="body_entered" from="GameManager/Loader" to="GameManager" method="_on_loader_body_entered"]

@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdy7tfb1bwuby"]
+
+[ext_resource type="Texture2D" uid="uid://2qw7rphmyqfk" path="res://Assets/Particles/window_04.png" id="1_7en1r"]
+
+[sub_resource type="Gradient" id="Gradient_xx42g"]
+offsets = PackedFloat32Array(0, 0.518325, 1)
+colors = PackedColorArray(0.88028, 0.105154, 0.245618, 1, 0.548161, 0.3884, 0.619348, 1, 1, 1, 1, 1)
+
+[node name="Train_01" type="Node2D"]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 20
+lifetime = 0.5
+texture = ExtResource("1_7en1r")
+particle_flag_align_y = true
+direction = Vector2(0, 1)
+gravity = Vector2(0, 0)
+color = Color(0.462745, 0.658824, 0.878431, 1)
+color_ramp = SubResource("Gradient_xx42g")
